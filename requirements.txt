@@ -1,0 +1,8 @@
+flask
+os
+urllib
+pandas
+pymssql
+sqlalchemy
+azure.storage.blob
+PIL
