@@ -1,5 +1,4 @@
 flask
-urllib
 pandas
 pymssql
 sqlalchemy
