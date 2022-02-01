@@ -10,7 +10,7 @@ import pymssql
 from sqlalchemy import create_engine
 from azure.storage.blob import BlobClient,generate_blob_sas, BlobSasPermissions,PublicAccess,BlobServiceClient
 import urllib.request
-from PIL import Image
+#from PIL import Image
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/files'
