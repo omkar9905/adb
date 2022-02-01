@@ -3,4 +3,3 @@ pandas
 pymssql
 sqlalchemy
 azure.storage.blob
-PIL
