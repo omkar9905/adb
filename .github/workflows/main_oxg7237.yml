@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'oxg7237'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_261531509703480EA0F48F2949FDD527 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_64432C886D0B410DAB0D0E19CBB644D2 }}
