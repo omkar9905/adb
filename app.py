@@ -46,6 +46,7 @@ def parseCSV(filepath):
                 try:
                     sql = "INSERT INTO users (name,state, salary,grade, room, telnum, picture, keywords) VALUES (%s,%s, %s, %s, %s, %s, %s, %s)"
                     value = (row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
+                    print(sql)
                     c1.execute(sql, value)
                     print(row['name'],row['state'], row['salary'],row['grade'], row['room'], row['telnum'], row['picture'], row['keywords'])
                     conn.commit()
@@ -177,7 +178,9 @@ def getNames():
         names = c1.fetchall()
     except:
         pass
+
     return names
+
 
 @app.route('/edit',methods=['GET','POST'])
 def edit():
@@ -189,23 +192,19 @@ def edit():
 #Name,State,Salary,Grade,Room,Telnum,Picture,Keywords
     if request.method == "POST":
         name = request.form['name'].lower()
-        state=request.form['state']
+        state = request.form['state']
         salary = request.form['salary']
-        grade=request.form['grade']
+        grade = request.form['grade']
         room = request.form['room']
         telnum = request.form['telnum']
         picture = request.form['picture']
         keywords = request.form['keywords']
-        print(picture)
         if salary:
             try:
                 if picture:
-                    print('HERE')
                     sql = f"UPDATE users set name = '{name}',state = '{state}', salary = {salary},grade = {grade}, room={room},telnum={telnum},picture='{picture}',keywords='{keywords}' where name = '{name}'"
-                    print(sql)
                 else:
                     sql = f"UPDATE users set name = '{name}',state = '{state}', salary = {salary},grade = {grade}, room={room},telnum={telnum},picture='{picture}',keywords='{keywords}' where name = '{name}'"
-                    print(sql)
                 c1.execute(sql)
                 conn.commit()
                 conn.close
@@ -213,4 +212,5 @@ def edit():
                 flash("Duplicate names in file")
 
     names = getNames()
+    print(names)
     return render_template("edit.html", names=names)
