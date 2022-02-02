@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from flask import Flask, render_template, request, redirect, url_for, flash
 import os
 from datetime import datetime, timedelta
@@ -10,7 +8,6 @@ import pymssql
 from sqlalchemy import create_engine
 from azure.storage.blob import BlobClient,generate_blob_sas, BlobSasPermissions,PublicAccess,BlobServiceClient
 import urllib.request
-#from PIL import Image
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'static/files'
@@ -35,10 +32,11 @@ def uploadFile():
 
 def parseCSV(filepath):
     if filepath.endswith('.csv'):
-        server = 'oxg7237.database.windows.net'
-        user = 'oxg7237'
+        #server = 'oxg7237.database.windows.net'
+        server = 'yxg7510.database.windows.net'
+        user = 'omkargwd96'
         password = 'Omkargawade@96'
-        conn = pymssql.connect(server, user, password, "temp")
+        conn = pymssql.connect(server, user, password, "test")
         c1 = conn.cursor()
         col_names=['name','state','salary','grade','room','telnum','picture','keywords']
         csvData = pd.read_csv(filepath,names=col_names,header=None)
@@ -59,10 +57,11 @@ def parseCSV(filepath):
     elif filepath.endswith(('.png','.jpg')):
         path = 'static/files'
         file_names = os.listdir(path)
-        account_name = 'sqlva7zekxza2qevhw'
-        account_key = 'A48+JUxoxbggHcwf1RPyBu/A7z5g3Fv6eB47rTnCWUwf+EcWL0on2q9PVh9vy/Inhc9fOfKg1YiyuXN3AeJheA=='
+        #account_name = 'sqlva7zekxza2qevhw'
+        account_name = 'sqlvaupxhkcaqu634o'
+        account_key = 'owfIdvHaanRWZILrZYmwAVJznG6KAQxPsHmceDmgzAWdQEF05QC6qgtKYqvNMwltrzPhYdg7r72UlfkKR8NHsw=='
         container_name = 'test'
-        connection_string = 'DefaultEndpointsProtocol=https;AccountName=sqlva7zekxza2qevhw;AccountKey=A48+JUxoxbggHcwf1RPyBu/A7z5g3Fv6eB47rTnCWUwf+EcWL0on2q9PVh9vy/Inhc9fOfKg1YiyuXN3AeJheA==;EndpointSuffix=core.windows.net'
+        connection_string = 'DefaultEndpointsProtocol=https;AccountName=sqlvaupxhkcaqu634o;AccountKey=owfIdvHaanRWZILrZYmwAVJznG6KAQxPsHmceDmgzAWdQEF05QC6qgtKYqvNMwltrzPhYdg7r72UlfkKR8NHsw==;EndpointSuffix=core.windows.net'
         blob_service_client = BlobServiceClient.from_connection_string(connection_string)
         container_client = blob_service_client.get_container_client(container_name)
 
@@ -78,8 +77,8 @@ def parseCSV(filepath):
 
 @app.route('/search', methods=['GET','POST'])
 def search():
-    account_name = 'sqlva7zekxza2qevhw'
-    account_key = 'A48+JUxoxbggHcwf1RPyBu/A7z5g3Fv6eB47rTnCWUwf+EcWL0on2q9PVh9vy/Inhc9fOfKg1YiyuXN3AeJheA=='
+    account_name = 'sqlvaupxhkcaqu634o'
+    account_key = 'owfIdvHaanRWZILrZYmwAVJznG6KAQxPsHmceDmgzAWdQEF05QC6qgtKYqvNMwltrzPhYdg7r72UlfkKR8NHsw=='
     container_name = 'test'
     urls = None
 
@@ -105,10 +104,10 @@ def search():
     return render_template('search.html',urls=urls)
 
 def getPicture(name):
-    server = 'oxg7237.database.windows.net'
-    user = 'oxg7237'
+    server = 'yxg7510.database.windows.net'
+    user = 'omkargwd96'
     password = 'Omkargawade@96'
-    conn = pymssql.connect(server, user, password, "temp")
+    conn = pymssql.connect(server, user, password, "test")
     c1 = conn.cursor()
 
     try:
@@ -121,12 +120,11 @@ def getPicture(name):
         flash("IMAGE FILE DOES NOT EXIST")
     return names
 
-
 def salaryGrtquery(salaryGrt):
-    server = 'oxg7237.database.windows.net'
-    user = 'oxg7237'
+    server = 'yxg7510.database.windows.net'
+    user = 'omkargwd96'
     password = 'Omkargawade@96'
-    conn = pymssql.connect(server, user, password, "temp")
+    conn = pymssql.connect(server, user, password, "test")
     c1 = conn.cursor()
 
     try:
@@ -140,10 +138,10 @@ def salaryGrtquery(salaryGrt):
     return names
 
 def salaryLesquery(salaryLes):
-    server = 'oxg7237.database.windows.net'
-    user = 'oxg7237'
+    server = 'yxg7510.database.windows.net'
+    user = 'omkargwd96'
     password = 'Omkargawade@96'
-    conn = pymssql.connect(server, user, password, "temp")
+    conn = pymssql.connect(server, user, password, "test")
     c1 = conn.cursor()
 
     try:
@@ -166,10 +164,10 @@ def get_blob_sas(account_name, account_key, container_name, blob_name):
     return sas_blob
 
 def getNames():
-    server = 'oxg7237.database.windows.net'
-    user = 'oxg7237'
+    server = 'yxg7510.database.windows.net'
+    user = 'omkargwd96'
     password = 'Omkargawade@96'
-    conn = pymssql.connect(server, user, password, "temp")
+    conn = pymssql.connect(server, user, password, "test")
     c1 = conn.cursor()
     names = []
 
@@ -183,10 +181,10 @@ def getNames():
 
 @app.route('/edit',methods=['GET','POST'])
 def edit():
-    server = 'oxg7237.database.windows.net'
-    user = 'oxg7237'
+    server = 'yxg7510.database.windows.net'
+    user = 'omkargwd96'
     password = 'Omkargawade@96'
-    conn = pymssql.connect(server, user, password, "temp")
+    conn = pymssql.connect(server, user, password, "test")
     c1 = conn.cursor()
 #Name,State,Salary,Grade,Room,Telnum,Picture,Keywords
     if request.method == "POST":
