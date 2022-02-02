@@ -40,7 +40,7 @@ def parseCSV(filepath):
         c1 = conn.cursor()
         col_names=['name','state','salary','grade','room','telnum','picture','keywords']
         csvData = pd.read_csv(filepath,names=col_names,header=None)
-        csvData = csvData.where((pd.notnull(csvData)), None)
+        csvData = csvData.where((pd.notnull(csvData)), 0)
         for i, row in csvData.iterrows():
             if i > 0:
                 try:
